@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<title>Generate CV</title>
+
+</head>
+
+<body>
+
+	<div style="margin-left: 25%;"
+		class="mainbox col-md-6 col-md-offset-5 col-sm-10 col-sm-offset-11 border border-black bg-light">
+
+		<h3 class="font-weight-bold">Generate CV</h3>
+		<hr>
+
+
+		<form th:action="@{/cv/generateCV}" th:object="${cv}" method="POST">
+
+			<p class="font-weight-bold">Font:</p>
+			<select th:field="*{fontType}">
+				<option value="Times New Roman">Times New Roman</option>
+				<option value="Helvetica">Helvetica</option>
+			</select> <br>
+			<br>
+
+			<p class="font-weight-bold">Color:</p>
+			<select th:field="*{fontColor}">
+				<option value="Black">Black</option>
+				<option value="Blue">Blue</option>
+				<option value="Dark Gray">Dark Gray</option>
+			</select> <br>
+			<br>
+
+			<p class="font-weight-bold">Style:</p>
+			<select th:field="*{center}">
+				<option value="Center">Center</option>
+				<option value="Default">Default</option>
+			</select> <br>
+			<br> <input type="checkbox" th:field="${cv.displayPicture}" />
+			<label class="font-weight-bold">Display picture</label> <br> <input
+				type="checkbox" th:field="${cv.displayDetails}" /> <label
+				class="font-weight-bold">Display details</label> <br> <input
+				type="checkbox"
+				onchange="document.getElementById('description').disabled = !this.checked;"
+				th:field="${cv.displayDescription}" /> <label
+				class="font-weight-bold">Display description</label> <input disabled
+				id="description" type="text" maxlength="20"
+				th:field="*{description}" class="form-control mb-4 col-4"
+				placeholder="Description"> <input type="checkbox"
+				onchange="document.getElementById('education').disabled = !this.checked;"
+				th:field="${cv.displayEducation}" /> <label
+				class="font-weight-bold">Display education</label> <input disabled
+				id="education" type="text" maxlength="20" th:field="*{education}"
+				class="form-control mb-4 col-4" placeholder="Education"> <input
+				type="checkbox"
+				onchange="document.getElementById('projects').disabled = !this.checked;"
+				th:field="${cv.displayProjects}" /> <label class="font-weight-bold">Display
+				projects</label> <input disabled id="projects" type="text" maxlength="20"
+				th:field="*{projects}" class="form-control mb-4 col-4"
+				placeholder="Projects"> <input type="checkbox"
+				onchange="document.getElementById('experience').disabled = !this.checked;"
+				th:field="${cv.displayExperience}" /> <label
+				class="font-weight-bold">Display experience</label> <input disabled
+				id="experience" type="text" maxlength="20" th:field="*{experience}"
+				class="form-control mb-4 col-4" placeholder="Experience"> <input
+				type="checkbox"
+				onchange="document.getElementById('languages').disabled = !this.checked;"
+				th:field="${cv.displayLanguages}" /> <label
+				class="font-weight-bold">Display languages</label> <input disabled
+				id="languages" type="text" maxlength="20" th:field="*{languages}"
+				class="form-control mb-4 col-4" placeholder="Languages"> <input
+				type="checkbox"
+				onchange="document.getElementById('hardskills').disabled = !this.checked;"
+				th:field="${cv.displayHardSkill}" /> <label
+				class="font-weight-bold">Display hard skills</label> <input disabled
+				id="hardskills" type="text" maxlength="20" th:field="*{hardSkills}"
+				class="form-control mb-4 col-4" placeholder="Hard skills"> <input
+				type="checkbox"
+				onchange="document.getElementById('softskills').disabled = !this.checked;"
+				th:field="${cv.displaySoftSkill}" /> <label
+				class="font-weight-bold">Display soft skills</label> <input disabled
+				id="softskills" type="text" maxlength="20" th:field="*{softSkills}"
+				class="form-control mb-4 col-4" placeholder="Soft skills"> <input
+				type="checkbox"
+				onchange="document.getElementById('hobbies').disabled = !this.checked;"
+				th:field="${cv.displayHobbies}" /> <label class="font-weight-bold">Display
+				hobbies</label> <input disabled id="hobbies" type="text" maxlength="20"
+				th:field="*{hobbies}" class="form-control mb-4 col-4"
+				placeholder="Hobbies"> <br>
+			<button type="submit" class="btn btn-info col-2">Generate</button>
+
+		</form>
+
+		<hr>
+		<a th:href="@{/menu}">Back to menu</a>
+
+	</div>
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

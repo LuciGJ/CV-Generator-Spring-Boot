@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<title>Edit education</title>
+</head>
+
+<body>
+
+	<div class="container">
+		<div style="margin-left: 20%; margin-top: 5%;"
+			class="mainbox col-md-7 col-md-offset-6 col-sm-10 col-sm-offset-6 border border-black bg-primary">
+			<h3 class="font-weight-bold text-light">Education</h3>
+			<hr>
+
+
+			<form th:action="@{/education/updateEducation}"
+				th:object="${education}" method="POST">
+
+				<input type="hidden" th:field="*{id}" /> <input type="text"
+					maxlength="50" th:field="*{name}" class="form-control mb-4 col-4"
+					placeholder="Major"> <input type="text" maxlength="50"
+					th:field="*{institution}" class="form-control mb-4 col-4"
+					placeholder="Institution"> <input type="text"
+					maxlength="50" th:field="*{started}"
+					class="form-control mb-4 col-4" placeholder="Started"> <input
+					type="text" maxlength="50" th:field="*{graduated}"
+					class="form-control mb-4 col-4" placeholder="Graduated"> <br>
+				<button type="submit" class="btn btn-success col-2">Save</button>
+
+			</form>
+
+			<hr>
+			<a class="font-weight-bold text-light"
+				th:href="@{/education/displayEducation}">Back to education list</a>
+
+		</div>
+	</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<title>Edit details</title>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<div style="margin-left: 20%; margin-top: 5%;"
+			class="mainbox col-md-7 col-md-offset-6 col-sm-10 col-sm-offset-6 border border-black bg-primary">
+			<p class="h4 mb-4 font-weight-bold text-light">User Details</p>
+
+			<form th:action="@{/userdata/updateDetail}" th:object="${userDetail}"
+				method="POST">
+
+
+				<input type="hidden" th:field="*{id}" /> <input type="hidden"
+					th:field="*{image}" /> <input type="text" maxlength="50"
+					th:field="*{firstName}" class="form-control mb-4 col-4"
+					placeholder="First name"> <input type="text" maxlength="50"
+					th:field="*{lastName}" class="form-control mb-4 col-4"
+					placeholder="Last name"> <input type="text" maxlength="50"
+					th:field="*{email}" class="form-control mb-4 col-4"
+					placeholder="Email"> <input type="text" maxlength="50"
+					th:field="*{phone}" class="form-control mb-4 col-4"
+					placeholder="Phone"> <input type="text" maxlength="50"
+					th:field="*{birthday}" class="form-control mb-4 col-4"
+					placeholder="Birthday"> <input type="text" maxlength="100"
+					th:field="*{address}" class="form-control mb-4 col-4"
+					placeholder="Address">
+
+				<textarea rows="5" cols="33" maxlength="1000"
+					th:field="*{description}">
+			    Description 
+			  </textarea>
+				<br>
+				<button type="submit" class="btn btn-success col-2">Save</button>
+
+			</form>
+
+			<hr>
+			<a class="font-weight-bold text-light"
+				th:href="@{/userdata/listDetail}">Back to details</a>
+
+		</div>
+	</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

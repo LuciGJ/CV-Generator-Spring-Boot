@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+<title>User details</title>
+</head>
+
+<body>
+
+	<div style="margin-left: 20%; margin-top: 5%;"
+		class="mainbox col-md-7 col-md-offset-6 col-sm-10 col-sm-offset-6 border border-black bg-primary">
+
+
+		<img class="border border-black" width="200" height="200"
+			th:src="@{'/user-photos/' + ${userDetail.image}}" />
+		<p class="font-weight-bold text-light"
+			th:text="${userDetail.firstName != null} ? 'First name: ' + ${userDetail.firstName} : 'First name not set'"></p>
+		<p class="font-weight-bold text-light"
+			th:text="${userDetail.lastName != null} ? 'Last name: ' + ${userDetail.lastName} : 'Last name not set'"></p>
+		<p class="font-weight-bold text-light"
+			th:text="${userDetail.email != null} ? 'Email: ' + ${userDetail.email} : 'Email not set'"></p>
+		<p class="font-weight-bold text-light"
+			th:text="${userDetail.phone != null} ? 'Phone: ' + ${userDetail.phone} : 'Phone not set'"></p>
+		<p class="font-weight-bold text-light"
+			th:text="${userDetail.birthday != null} ? 'Birthday: ' + ${userDetail.birthday} : 'Birthday not set'"></p>
+		<p class="font-weight-bold text-light"
+			th:text="${userDetail.address != null} ? 'Address: ' + ${userDetail.address} : 'Address not set'"></p>
+		<p class="font-weight-bold text-light"
+			th:text="${userDetail.description != null} ? 'Description: ' + ${userDetail.description} : 'Description not set'"></p>
+
+		<hr>
+		<a class="btn btn-info col-2" th:href="@{/userdata/updateDetailForm}">Edit
+			data</a> <a class="btn btn-info col-2"
+			th:href="@{/userdata/uploadPictureForm}">Upload picture</a>
+		<hr>
+
+		<a class="text-light" th:href="@{/menu}">Back to menu</a>
+
+	</div>
+
+</body>
+</html>
+
+
+

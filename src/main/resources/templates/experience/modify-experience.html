@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<title>Edit experience</title>
+</head>
+
+<body>
+
+	<div class="container">
+		<div style="margin-left: 20%; margin-top: 5%;"
+			class="mainbox col-md-7 col-md-offset-6 col-sm-10 col-sm-offset-6 border border-black bg-primary">
+			<h3 class="font-weight-bold text-light">Experience</h3>
+			<hr>
+
+
+			<form th:action="@{/experience/updateExperience}"
+				th:object="${experience}" method="POST">
+
+
+				<input type="hidden" th:field="*{id}" /> <input type="text"
+					maxlength="50" th:field="*{name}" class="form-control mb-4 col-4"
+					placeholder="Name"> <input type="text" maxlength="50"
+					th:field="*{role}" class="form-control mb-4 col-4"
+					placeholder="Role"> <input type="text" maxlength="50"
+					th:field="*{startDate}" class="form-control mb-4 col-4"
+					placeholder="Started"> <input type="text" maxlength="50"
+					th:field="*{endDate}" class="form-control mb-4 col-4"
+					placeholder="Ended">
+
+				<textarea placeholder="Description" rows="5" cols="33"
+					maxlength="500" th:field="*{description}"> </textarea>
+
+				<br>
+				<button type="submit" class="btn btn-success col-2">Save</button>
+
+			</form>
+
+			<hr>
+			<a class="font-weight-bold text-light"
+				th:href="@{/experience/displayExperience}">Back to experience
+				list</a>
+
+		</div>
+	</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

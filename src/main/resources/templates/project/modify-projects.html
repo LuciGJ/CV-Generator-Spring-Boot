@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<title>Edit project</title>
+</head>
+
+<body>
+
+	<div class="container">
+		<div style="margin-left: 20%; margin-top: 5%;"
+			class="mainbox col-md-7 col-md-offset-6 col-sm-10 col-sm-offset-6 border border-black bg-primary">
+			<h3 class="font-weight-bold text-light">Project</h3>
+			<hr>
+
+
+			<form th:action="@{/project/updateProject}" th:object="${project}"
+				method="POST">
+				<input type="hidden" th:field="*{id}" /> <input type="text"
+					maxlength="50" th:field="*{name}" class="form-control mb-4 col-4"
+					placeholder="Name">
+
+				<textarea placeholder="Description" rows="5" cols="33"
+					maxlength="500" th:field="*{description}"> </textarea>
+
+
+				<br>
+				<button type="submit" class="btn btn-success col-2">Save</button>
+
+			</form>
+
+			<hr>
+			<a class="font-weight-bold text-light"
+				th:href="@{/project/displayProject}">Back to projects list</a>
+
+		</div>
+	</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
