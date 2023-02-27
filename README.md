@@ -34,7 +34,8 @@ Screenshots:
 ![siginpage](https://user-images.githubusercontent.com/125903019/220716128-03825a61-4362-481e-9a14-b843e46b90e8.png)
 
 * generated CVs
-![generatedcv1](https://user-images.githubusercontent.com/125903019/221523479-7eb6f92f-7691-482c-a4d6-5fe1abc0ca7b.png)
+![generatedcv1fixed](https://user-images.githubusercontent.com/125903019/221526364-64ab581b-d2b6-4b47-9458-9c37fb08b71e.png)
+
 
 
 ![generatedcv2](https://user-images.githubusercontent.com/125903019/221523507-b6bef615-b19b-447f-aae5-327d22a05f09.png)
