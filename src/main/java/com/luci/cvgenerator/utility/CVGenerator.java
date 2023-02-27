@@ -407,7 +407,7 @@ public class CVGenerator {
 							}
 							contentStream.showText(builder.toString());
 
-							if (tempY - leading - 20 > 0) {
+							if (tempY - 4 * leading > 0) {
 								contentStream.newLineAtOffset(0, -leading);
 								tempY -= leading;
 							} else {
@@ -480,7 +480,7 @@ public class CVGenerator {
 							int i = 0;
 							for (String line : lines) {
 
-								if (tempY - leading > -30 || i == 0) {
+								if (tempY - 4 * leading > 0 || i == 0) {
 									contentStream.showText(line);
 									contentStream.newLineAtOffset(getWidth(": ", font, fontSize), -leading);
 									tempY -= leading;
@@ -585,7 +585,7 @@ public class CVGenerator {
 						
 							int i = 0;
 							for (String line : lines) {
-								if (tempY - leading - 30 > 0) {
+								if (tempY - 4 * leading > 0) {
 									contentStream.showText(line);
 									contentStream.newLineAtOffset(getWidth(": ", font, fontSize), -leading);
 									tempY -= leading;
@@ -671,7 +671,7 @@ public class CVGenerator {
 
 							contentStream.showText(builder.toString());
 
-							if (tempY - leading - 20 > 0) {
+							if (tempY - 4 * leading  > 0) {
 								contentStream.newLineAtOffset(0, -leading);
 								tempY -= leading;
 							} else {
@@ -745,7 +745,8 @@ public class CVGenerator {
 							
 							int i = 0;
 							for (String line : lines) {
-								if (tempY - leading - 30 > 0) {
+						
+								if (tempY - 4 * leading > 0) {
 									contentStream.showText(line);
 									contentStream.newLineAtOffset(getWidth(": ", font, fontSize), -leading);
 									tempY -= leading;
@@ -839,7 +840,7 @@ public class CVGenerator {
 							int i = 0;
 							for (String line : lines) {
 
-								if (tempY - leading - 30 > 0) {
+								if (tempY - 4 * leading > 0) {
 									contentStream.showText(line);
 									contentStream.newLineAtOffset(getWidth(": ", font, fontSize), -leading);
 									tempY -= leading;
@@ -932,7 +933,7 @@ public class CVGenerator {
 							int i = 0;
 							for (String line : lines) {
 
-								if (tempY - leading - 30 > 0) {
+								if (tempY - 4 * leading > 0) {
 									contentStream.showText(line);
 									contentStream.newLineAtOffset(getWidth(": ", font, fontSize), -leading);
 									tempY -= leading;
