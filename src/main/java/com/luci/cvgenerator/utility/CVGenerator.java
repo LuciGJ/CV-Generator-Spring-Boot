@@ -253,31 +253,22 @@ public class CVGenerator {
 
 			if (userDetail.getFirstName() != null || userDetail.getLastName() != null) {
 				contentStream.beginText();
-				int nameLength = 0;
 				String theName = "";
 				if (userDetail.getFirstName() != null) {
-					nameLength += userDetail.getFirstName().length();
 					theName += userDetail.getFirstName();
 				}
 
 				if (userDetail.getLastName() != null) {
-					nameLength += userDetail.getLastName().length();
 					theName += " ";
 					theName += userDetail.getLastName();
 				}
-				if (nameLength <= 15) {
-					if (isCentered) {
-						contentStream.newLineAtOffset(center, tempY);
-					} else {
-						contentStream.newLineAtOffset(tempX, tempY);
-					}
-				} else {
+
 					if (isCentered) {
 						contentStream.newLineAtOffset(center - getWidth(theName, sectionFont, 20) / 2f + margin, tempY) ;
 					} else {
 						contentStream.newLineAtOffset(tempX, tempY);
 					}
-				}
+				
 
 				if (userDetail.getFirstName() != null) {
 					contentStream.setFont(sectionFont, 20);
