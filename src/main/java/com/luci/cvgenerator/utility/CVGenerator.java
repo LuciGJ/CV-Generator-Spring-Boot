@@ -86,6 +86,9 @@ public class CVGenerator {
 	private static float getWidth(String string, PDType1Font font, int fontSize) throws IOException {
 		return font.getStringWidth(string) / 1000 * fontSize;
 	}
+	
+	
+
 
 	public static void generateCVPDF(UserService userService, Principal principal, CV cv) {
 
@@ -251,12 +254,16 @@ public class CVGenerator {
 			if (userDetail.getFirstName() != null || userDetail.getLastName() != null) {
 				contentStream.beginText();
 				int nameLength = 0;
+				String theName = "";
 				if (userDetail.getFirstName() != null) {
 					nameLength += userDetail.getFirstName().length();
+					theName += userDetail.getFirstName();
 				}
 
 				if (userDetail.getLastName() != null) {
 					nameLength += userDetail.getLastName().length();
+					theName += " ";
+					theName += userDetail.getLastName();
 				}
 				if (nameLength <= 15) {
 					if (isCentered) {
@@ -266,7 +273,7 @@ public class CVGenerator {
 					}
 				} else {
 					if (isCentered) {
-						contentStream.newLineAtOffset(center - tempX, tempY);
+						contentStream.newLineAtOffset(center - getWidth(theName, sectionFont, 20) / 2f + margin, tempY) ;
 					} else {
 						contentStream.newLineAtOffset(tempX, tempY);
 					}
@@ -286,7 +293,6 @@ public class CVGenerator {
 					addedName = true;
 				}
 				if (addedName) {
-					contentStream.setFont(font, 10);
 					tempY -= 20;
 				}
 				contentStream.endText();
@@ -294,11 +300,7 @@ public class CVGenerator {
 
 			if (cv.isDisplayDetails()) {
 				contentStream.beginText();
-				if (isCentered) {
-					contentStream.newLineAtOffset(tempX * 5, tempY);
-				} else {
-					contentStream.newLineAtOffset(tempX, tempY);
-				}
+				contentStream.setFont(font, 10);
 
 				StringBuilder newLine = new StringBuilder("");
 
@@ -334,12 +336,15 @@ public class CVGenerator {
 					newLine.append(userDetail.getBirthday());
 				}
 
+				if (isCentered) {
+					contentStream.newLineAtOffset(center - getWidth(newLine.toString(), font, 10) / 2f + margin, tempY);
+				} else {
+					contentStream.newLineAtOffset(tempX, tempY);
+				}
+				
 				if (!newLine.toString().equals("")) {
 					contentStream.showText(newLine.toString());
 					tempY -= 10;
-					if (isCentered) {
-						contentStream.newLineAtOffset(tempX * 2, 0);
-					}
 				}
 				contentStream.endText();
 			}
