@@ -28,8 +28,7 @@ import com.luci.cvgenerator.service.UserService;
 
 public class CVGenerator {
 
-	private static List<String> getLinesLong(String text, int fontSize, PDType1Font font, float width)
-			throws IOException {
+	private static List<String> getLines(String text, int fontSize, PDType1Font font, float width, float space) throws IOException {
 		List<String> lines = new ArrayList<String>();
 		int lastSpace = -1;
 		while (text.length() > 0) {
@@ -38,34 +37,7 @@ public class CVGenerator {
 				spaceIndex = text.length();
 			String subString = text.substring(0, spaceIndex);
 			float size = fontSize * font.getStringWidth(subString) / 1000;
-			if (size > width - 100) {
-				if (lastSpace < 0)
-					lastSpace = spaceIndex;
-				subString = text.substring(0, lastSpace);
-				lines.add(subString);
-				text = text.substring(lastSpace).trim();
-				lastSpace = -1;
-			} else if (spaceIndex == text.length()) {
-				lines.add(text);
-				text = "";
-			} else {
-				lastSpace = spaceIndex;
-			}
-		}
-
-		return lines;
-	}
-
-	private static List<String> getLines(String text, int fontSize, PDType1Font font, float width) throws IOException {
-		List<String> lines = new ArrayList<String>();
-		int lastSpace = -1;
-		while (text.length() > 0) {
-			int spaceIndex = text.indexOf(' ', lastSpace + 1);
-			if (spaceIndex < 0)
-				spaceIndex = text.length();
-			String subString = text.substring(0, spaceIndex);
-			float size = fontSize * font.getStringWidth(subString) / 1000;
-			if (size > width + 50) {
+			if (size > width + space) {
 				if (lastSpace < 0)
 					lastSpace = spaceIndex;
 				subString = text.substring(0, lastSpace);
@@ -86,9 +58,6 @@ public class CVGenerator {
 	private static float getWidth(String string, PDType1Font font, int fontSize) throws IOException {
 		return font.getStringWidth(string) / 1000 * fontSize;
 	}
-	
-	
-
 
 	public static void generateCVPDF(UserService userService, Principal principal, CV cv) {
 
@@ -263,12 +232,11 @@ public class CVGenerator {
 					theName += userDetail.getLastName();
 				}
 
-					if (isCentered) {
-						contentStream.newLineAtOffset(center - getWidth(theName, sectionFont, 20) / 2f + margin, tempY) ;
-					} else {
-						contentStream.newLineAtOffset(tempX, tempY);
-					}
-				
+				if (isCentered) {
+					contentStream.newLineAtOffset(center - getWidth(theName, sectionFont, 20) / 2f + margin, tempY);
+				} else {
+					contentStream.newLineAtOffset(tempX, tempY);
+				}
 
 				if (userDetail.getFirstName() != null) {
 					contentStream.setFont(sectionFont, 20);
@@ -332,7 +300,7 @@ public class CVGenerator {
 				} else {
 					contentStream.newLineAtOffset(tempX, tempY);
 				}
-				
+
 				if (!newLine.toString().equals("")) {
 					contentStream.showText(newLine.toString());
 					tempY -= 10;
@@ -359,15 +327,27 @@ public class CVGenerator {
 				if (userDetail.getDescription() != null) {
 					firstSection = true;
 					contentStream.beginText();
-					contentStream.newLineAtOffset(center, tempY);
+					float move = 0f;
+					if (isCentered) {
+						contentStream.newLineAtOffset(
+								center - getWidth(cv.getDescription(), sectionFont, sectionFontSize) / 2f + margin,
+								tempY);
+						move = center - getWidth(cv.getDescription(), sectionFont, sectionFontSize) / 2f + margin;
+					} else {
+						contentStream.newLineAtOffset(center, tempY);
+						move = center;
+					}
 					contentStream.setFont(sectionFont, sectionFontSize);
+			
+
 					contentStream.showText(cv.getDescription());
 					contentStream.setFont(font, fontSize);
 					tempY -= leading;
 					String description = userDetail.getDescription();
-					List<String> lines = getLines(description, fontSize, font, width);
+					float space = margin + tempX;
+					List<String> lines = getLines(description, fontSize, font, width, space);
 					if (lines.size() > 0) {
-						contentStream.newLineAtOffset(-center + tempX, -sectionFontSize);
+						contentStream.newLineAtOffset(-move + tempX, -sectionFontSize);
 						tempY -= sectionFontSize;
 						tempY += leading;
 					}
@@ -395,12 +375,20 @@ public class CVGenerator {
 					} else {
 						firstSection = true;
 					}
-					contentStream.setFont(sectionFont, sectionFontSize);
-					contentStream.newLineAtOffset(center, tempY);
+					float move = 0f;
+					if (isCentered) {
+						contentStream.newLineAtOffset(
+								center - getWidth(cv.getEducation(), sectionFont, sectionFontSize) / 2f + margin,
+								tempY);
+						move = center - getWidth(cv.getEducation(), sectionFont, sectionFontSize) / 2f + margin; 
+					} else {
+						contentStream.newLineAtOffset(center, tempY);
+						move = center;
+					}
 					contentStream.setFont(sectionFont, sectionFontSize);
 					contentStream.showText(cv.getEducation());
 					contentStream.setFont(font, fontSize);
-					contentStream.newLineAtOffset(-center + tempX, -sectionFontSize);
+					contentStream.newLineAtOffset(-move + tempX, -sectionFontSize);
 					tempY -= leading;
 
 					for (Education education : educationList) {
@@ -458,12 +446,19 @@ public class CVGenerator {
 					} else {
 						firstSection = true;
 					}
-					contentStream.setFont(sectionFont, sectionFontSize);
-					contentStream.newLineAtOffset(center, tempY);
+					float move = 0f;
+					if (isCentered) {
+						contentStream.newLineAtOffset(
+								center - getWidth(cv.getProjects(), sectionFont, sectionFontSize) / 2f + margin, tempY);
+						move = center - getWidth(cv.getProjects(), sectionFont, sectionFontSize) / 2f + margin;
+					} else {
+						contentStream.newLineAtOffset(center, tempY);
+						move = center;
+					}
 					contentStream.setFont(sectionFont, sectionFontSize);
 					contentStream.showText(cv.getProjects());
 					contentStream.setFont(font, fontSize);
-					contentStream.newLineAtOffset(-center + tempX, -sectionFontSize);
+					contentStream.newLineAtOffset(-move + tempX, -sectionFontSize);
 					tempY -= leading;
 
 					for (Project project : projectList) {
@@ -479,15 +474,13 @@ public class CVGenerator {
 							}
 							String description = project.getDescription();
 							List<String> lines;
-							if (project.getName().length() > 20) {
-								lines = getLinesLong(description, fontSize, font, width);
-							} else {
-								lines = getLines(description, fontSize, font, width);
-							}
+							float space = -getWidth(project.getName(), font, fontSize) + tempX + margin;
+							lines = getLines(description, fontSize, font, width, space);
+							
 							int i = 0;
 							for (String line : lines) {
 
-								if (tempY - leading > -20 || i == 0) {
+								if (tempY - leading > -30 || i == 0) {
 									contentStream.showText(line);
 									contentStream.newLineAtOffset(getWidth(": ", font, fontSize), -leading);
 									tempY -= leading;
@@ -546,12 +539,20 @@ public class CVGenerator {
 					} else {
 						firstSection = true;
 					}
-					contentStream.setFont(sectionFont, sectionFontSize);
-					contentStream.newLineAtOffset(center, tempY);
+					float move = 0f;
+					if (isCentered) {
+						contentStream.newLineAtOffset(
+								center - getWidth(cv.getExperience(), sectionFont, sectionFontSize) / 2f + margin,
+								tempY);
+						move = center - getWidth(cv.getExperience(), sectionFont, sectionFontSize) / 2f + margin;
+					} else {
+						contentStream.newLineAtOffset(center, tempY);
+						move = center;
+					}
 					contentStream.setFont(sectionFont, sectionFontSize);
 					contentStream.showText(cv.getExperience());
 					contentStream.setFont(font, fontSize);
-					contentStream.newLineAtOffset(-center + tempX, -sectionFontSize);
+					contentStream.newLineAtOffset(-move + tempX, -sectionFontSize);
 					tempY -= leading;
 
 					for (Experience experience : experienceList) {
@@ -579,14 +580,12 @@ public class CVGenerator {
 							}
 							String description = experience.getDescription();
 							List<String> lines;
-							if (builder.toString().length() > 20) {
-								lines = getLinesLong(description, fontSize, font, width);
-							} else {
-								lines = getLines(description, fontSize, font, width);
-							}
+							float space = -getWidth(builder.toString(), font, fontSize) + tempX + margin;
+							lines = getLines(description, fontSize, font, width, space);
+						
 							int i = 0;
 							for (String line : lines) {
-								if (tempY - leading - 20 > 0) {
+								if (tempY - leading - 30 > 0) {
 									contentStream.showText(line);
 									contentStream.newLineAtOffset(getWidth(": ", font, fontSize), -leading);
 									tempY -= leading;
@@ -645,12 +644,20 @@ public class CVGenerator {
 					} else {
 						firstSection = true;
 					}
-					contentStream.setFont(sectionFont, sectionFontSize);
-					contentStream.newLineAtOffset(center, tempY);
+					float move = 0f;
+					if (isCentered) {
+						contentStream.newLineAtOffset(
+								center - getWidth(cv.getLanguages(), sectionFont, sectionFontSize) / 2f + margin,
+								tempY);
+						move = center - getWidth(cv.getLanguages(), sectionFont, sectionFontSize) / 2f + margin;
+					} else {
+						contentStream.newLineAtOffset(center, tempY);
+						move = center;
+					}
 					contentStream.setFont(sectionFont, sectionFontSize);
 					contentStream.showText(cv.getLanguages());
 					contentStream.setFont(font, fontSize);
-					contentStream.newLineAtOffset(-center + tempX, -sectionFontSize);
+					contentStream.newLineAtOffset(-move + tempX, -sectionFontSize);
 					tempY -= leading;
 
 					for (Language language : languageList) {
@@ -704,12 +711,20 @@ public class CVGenerator {
 					} else {
 						firstSection = true;
 					}
-					contentStream.setFont(sectionFont, sectionFontSize);
-					contentStream.newLineAtOffset(center, tempY);
+					float move = 0f;
+					if (isCentered) {
+						contentStream.newLineAtOffset(
+								center - getWidth(cv.getHardSkills(), sectionFont, sectionFontSize) / 2f + margin,
+								tempY);
+						move = center - getWidth(cv.getHardSkills(), sectionFont, sectionFontSize) / 2f + margin;
+					} else {
+						contentStream.newLineAtOffset(center, tempY);
+						move = center;
+					}
 					contentStream.setFont(sectionFont, sectionFontSize);
 					contentStream.showText(cv.getHardSkills());
 					contentStream.setFont(font, fontSize);
-					contentStream.newLineAtOffset(-center + tempX, -sectionFontSize);
+					contentStream.newLineAtOffset(-move + tempX, -sectionFontSize);
 					tempY -= leading;
 
 					for (HardSkill hardSkill : hardSkillList) {
@@ -725,14 +740,12 @@ public class CVGenerator {
 							}
 							String description = hardSkill.getDescription();
 							List<String> lines;
-							if (hardSkill.getName().length() > 20) {
-								lines = getLinesLong(description, fontSize, font, width);
-							} else {
-								lines = getLines(description, fontSize, font, width);
-							}
+							float space = -getWidth(hardSkill.getName(), font, fontSize) + tempX + margin;
+							lines = getLines(description, fontSize, font, width, space);
+							
 							int i = 0;
 							for (String line : lines) {
-								if (tempY - leading - 20 > 0) {
+								if (tempY - leading - 30 > 0) {
 									contentStream.showText(line);
 									contentStream.newLineAtOffset(getWidth(": ", font, fontSize), -leading);
 									tempY -= leading;
@@ -791,12 +804,20 @@ public class CVGenerator {
 					} else {
 						firstSection = true;
 					}
-					contentStream.setFont(sectionFont, sectionFontSize);
-					contentStream.newLineAtOffset(center, tempY);
+					float move = 0f;
+					if (isCentered) {
+						contentStream.newLineAtOffset(
+								center - getWidth(cv.getSoftSkills(), sectionFont, sectionFontSize) / 2f + margin,
+								tempY);
+						move = center - getWidth(cv.getSoftSkills(), sectionFont, sectionFontSize) / 2f + margin;
+					} else {
+						contentStream.newLineAtOffset(center, tempY);
+						move = center;
+					}
 					contentStream.setFont(sectionFont, sectionFontSize);
 					contentStream.showText(cv.getSoftSkills());
 					contentStream.setFont(font, fontSize);
-					contentStream.newLineAtOffset(-center + tempX, -sectionFontSize);
+					contentStream.newLineAtOffset(-move + tempX, -sectionFontSize);
 					tempY -= leading;
 
 					for (SoftSkill softSkill : softSkillList) {
@@ -812,15 +833,13 @@ public class CVGenerator {
 							}
 							String description = softSkill.getDescription();
 							List<String> lines;
-							if (softSkill.getName().length() > 20) {
-								lines = getLinesLong(description, fontSize, font, width);
-							} else {
-								lines = getLines(description, fontSize, font, width);
-							}
+							float space = -getWidth(softSkill.getName(), font, fontSize) + tempX + margin;
+								lines = getLines(description, fontSize, font, width, space);
+							
 							int i = 0;
 							for (String line : lines) {
 
-								if (tempY - leading - 20 > 0) {
+								if (tempY - leading - 30 > 0) {
 									contentStream.showText(line);
 									contentStream.newLineAtOffset(getWidth(": ", font, fontSize), -leading);
 									tempY -= leading;
@@ -879,12 +898,19 @@ public class CVGenerator {
 					} else {
 						firstSection = true;
 					}
-					contentStream.setFont(sectionFont, sectionFontSize);
-					contentStream.newLineAtOffset(center, tempY);
+					float move = 0f;
+					if (isCentered) {
+						contentStream.newLineAtOffset(
+								center - getWidth(cv.getHobbies(), sectionFont, sectionFontSize) / 2f + margin, tempY);
+						move = center - getWidth(cv.getHobbies(), sectionFont, sectionFontSize) / 2f + margin;
+					} else {
+						contentStream.newLineAtOffset(center, tempY);
+						move = center;
+					}
 					contentStream.setFont(sectionFont, sectionFontSize);
 					contentStream.showText(cv.getHobbies());
 					contentStream.setFont(font, fontSize);
-					contentStream.newLineAtOffset(-center + tempX, -sectionFontSize);
+					contentStream.newLineAtOffset(-move + tempX, -sectionFontSize);
 					tempY -= leading;
 
 					for (Interest interest : interestList) {
@@ -900,15 +926,13 @@ public class CVGenerator {
 							}
 							String description = interest.getDescription();
 							List<String> lines;
-							if (interest.getName().length() > 20) {
-								lines = getLinesLong(description, fontSize, font, width);
-							} else {
-								lines = getLines(description, fontSize, font, width);
-							}
+							float space = -getWidth(interest.getName(), font, fontSize) + tempX + margin;
+								lines = getLines(description, fontSize, font, width, space);
+							
 							int i = 0;
 							for (String line : lines) {
 
-								if (tempY - leading - 20 > 0) {
+								if (tempY - leading - 30 > 0) {
 									contentStream.showText(line);
 									contentStream.newLineAtOffset(getWidth(": ", font, fontSize), -leading);
 									tempY -= leading;
