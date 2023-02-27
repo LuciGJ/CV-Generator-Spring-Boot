@@ -27,19 +27,22 @@ Screenshots:
 ![menu](https://user-images.githubusercontent.com/125903019/220716115-712ccec9-3984-4d35-94f1-baceb460368e.png)
 
 * uploading picture
-![pictureupload](https://user-images.githubusercontent.com/125903019/220716121-10af9507-0781-4696-8676-e02382e2771c.png)
+![uploadingpicture](https://user-images.githubusercontent.com/125903019/221522717-f2e3e33c-8a36-41f7-b951-32903a8b8843.png)
+
 
 * sign in page
 ![siginpage](https://user-images.githubusercontent.com/125903019/220716128-03825a61-4362-481e-9a14-b843e46b90e8.png)
 
 * generated CVs
-![snowcv1](https://user-images.githubusercontent.com/125903019/220716137-fc3ed1d6-96b3-437a-a0b7-b1070cf8a530.png)
+![generatedcv1](https://user-images.githubusercontent.com/125903019/221523479-7eb6f92f-7691-482c-a4d6-5fe1abc0ca7b.png)
 
 
-![snowcv2](https://user-images.githubusercontent.com/125903019/220716144-8d66cd7e-ee87-4f89-b5cb-010a9c399b38.png)
+![generatedcv2](https://user-images.githubusercontent.com/125903019/221523507-b6bef615-b19b-447f-aae5-327d22a05f09.png)
+
 
 * adding education
-![addeducation](https://user-images.githubusercontent.com/125903019/220716063-c2e98898-5635-4698-a6ce-f3e7c506edbb.png)
+![addingeducation](https://user-images.githubusercontent.com/125903019/221523530-9e2171e2-3e71-4f71-99b3-f82b9cdd4245.png)
+
 
 * admin page
 ![adminpage](https://user-images.githubusercontent.com/125903019/220716071-fee39be9-d70a-46ea-ad67-1e848cfac15d.png)
@@ -51,7 +54,9 @@ Screenshots:
 ![deleteaccount](https://user-images.githubusercontent.com/125903019/220716089-1bca3740-01f5-4f06-8379-dc506ad2d276.png)
 
 * user details
-![details](https://user-images.githubusercontent.com/125903019/220716092-7840e66e-dc02-48fa-af3b-15a3782c1267.png)
+![userdetailpage](https://user-images.githubusercontent.com/125903019/221523584-87c5c359-87ce-4f9d-9eb0-f5812e840dcd.png)
+
 
 * education list
-![educationlist](https://user-images.githubusercontent.com/125903019/220716098-3b496617-8a31-4c57-a1db-7307e59a3957.png)
+![educationlist](https://user-images.githubusercontent.com/125903019/221523701-c90ffd1b-c727-4e9e-9d44-3deef48bf187.png)
+
