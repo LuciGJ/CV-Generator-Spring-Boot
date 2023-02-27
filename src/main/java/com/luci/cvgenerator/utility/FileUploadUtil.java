@@ -9,6 +9,8 @@ import java.nio.file.StandardCopyOption;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.activation.MimetypesFileTypeMap;
+
 public class FileUploadUtil {
 
 	public static void saveFile(String uploadDir, String fileName, MultipartFile multipartFile) throws IOException {
@@ -17,12 +19,18 @@ public class FileUploadUtil {
 		if (!Files.exists(uploadPath)) {
 			Files.createDirectories(uploadPath);
 		}
+		Path filePath = uploadPath.resolve(fileName);
+		String mimetype = new MimetypesFileTypeMap().getContentType(filePath.toFile());
+		String type = mimetype.split("/")[0];
+		if (type.equals("image")) {
+			try (InputStream inputStream = multipartFile.getInputStream()) {
 
-		try (InputStream inputStream = multipartFile.getInputStream()) {
-			Path filePath = uploadPath.resolve(fileName);
-			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			throw new IOException("Could not save image file: " + fileName, e);
+				Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				throw new IOException("Could not save image file: " + fileName, e);
+			}
+		} else {
+			throw new IOException("The file is not a valid image: " + fileName);
 		}
 	}
 
